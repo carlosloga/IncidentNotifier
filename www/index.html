@@ -61,16 +61,14 @@
         <div id="acordeon" data-role="collapsible-set" data-mini="true" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-l" data-thene="b" data-content-theme="b">
             <div data-role="collapsible" data-mini="true" id="collapsibleFoto">   <!--data-collapsed="false"-->
                     <h3><table style="width:100%;"><tr><td style="text-align:left; width:100%;">recollir proves</td><td style="text-align:right;"><a href="#" id="buttonCamara" onclick="hacerFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">càmara</a></td></tr></table></h3>
-                    <!--                <div class="ui-grid-a">
-                                          <div class="ui-block-a"><img id="imgFoto" src="" width="100%" alt="prova de la incidència" /></div>
-                                          <div class="ui-block-b"><a href="#" id="buttonEliminarFoto" onclick="eliminarFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">el·liminar</a></div>
-                                        </div>-->
-
                     <table style="width:100%;"><tr>
                         <td style="text-align:left; width:100%;">
                             <img id="imgFoto" src="" width="200px" alt="prova de la incidència" onclick="zoomFoto()" />
                         </td>
-                        <td style="text-align:right;"><a href="#" id="buttonEliminarFoto" onclick="eliminarFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">el·liminar</a></td>
+                        <td style="text-align:right;">
+                            <!-- <a href="#" id="buttonEliminarFoto" onclick="eliminarFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">el·liminar</a> -->
+                            <a href="#pageEliminarFoto" id="buttonEliminarFoto" data-rel="dialog" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-theme="b">el·liminar</a>
+                        </td>
                     </tr></table>
 
                 </div>
@@ -112,7 +110,7 @@
 </div>
 
 <!-- Página INFO -->
-<div data-role="popup" id="pageInfo">
+<div data-role="popup" id="pageInfo" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
     <div data-role="header" data-theme="a">
         <h3>info</h3>
     </div>
@@ -124,11 +122,22 @@
 </div>
 
 <!-- Página ZOOM FOTO -->
-<div data-role="popup" id="pageZoomFoto">
+<div data-role="popup" id="pageZoomFoto" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
     <div data-role="content" data-theme="b">
         <p>
-            <img id="imgZoomFoto" src="" width="200px" alt="prova de la incidència" />
+            <img id="imgZoomFoto" src="" width="100%" alt="prova de la incidència" />
         </p>
+    </div>
+</div>
+
+<div data-role="popup" id="pageEliminarFoto" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+    <div data-role="header" data-theme="a" class="ui-corner-top">
+        <h1>El·liminar foto</h1>
+    </div>
+    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+        <h3 class="ui-title">Està segur/a que vol el·liminar ?</h3>
+        <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">cancel·lar</a>
+        <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" onclick="eliminarFoto()">el·liminar</a>
     </div>
 </div>
 

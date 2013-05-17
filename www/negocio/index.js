@@ -79,6 +79,10 @@ function zoomFoto(){
     abrirPagina('pageZoomFoto');
 }
 
+function eliminarFoto(){
+     alert('elimino');
+}
+
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
 function iniciaMapa(bAbrir) {
     var mapOptions = {
