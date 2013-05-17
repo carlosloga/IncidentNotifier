@@ -1,27 +1,37 @@
-// funciones COMUNES -----------------------------------------------------------------------
+﻿// funciones COMUNES -----------------------------------------------------------------------
 var pictureSource;
 var destinationType;
+var map;
+var pos = null;
+var global_AjaxERROR = '';
+var global_AjaxRESULTADO = null;
+var sDireccion = '';
 
 window.addEventListener('load', function () {
     if (phoneGapRun()) {
-    document.addEventListener("deviceReady", deviceReady, false);
+        document.addEventListener("deviceReady", deviceReady, false);
     } else {
-    deviceReady();
+        deviceReady();
     }
 }, false);
 
 function deviceReady() {
-    alert('dReady');
     if (phoneGapRun()) {
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
     }
-$(document).on("mobileinit", function () {
-    alert('mobileInit');
+    $(document).on("mobileinit", function () {
+        alert('mobileInit');
     });
 }
-
 function abrirPagina(sPag) {
+    switch(sPag)
+    {
+        case 'pageNuevaIncidencia'  :
+            iniciaMapa(true);
+            break;
+    }
+
     $.mobile.changePage('#' + sPag, {
         transition: "flip",
         reverse: false,
@@ -30,12 +40,6 @@ function abrirPagina(sPag) {
 }
 
 // pageNuevaIncidencia -------------------------------------------------------------------
-var map;
-var pos = null;
-var global_AjaxERROR = '';
-var global_AjaxRESULTADO = null;
-var sDireccion = '';
-
 //Al cerrarse el aordeón del Comentari, que se ponga el texto en su cabecera
 $('#collapsibleComentario').bind('collapse', function () {
     $('#labelComentari').text( $('#textareaComentari').val() );
@@ -43,14 +47,13 @@ $('#collapsibleComentario').bind('collapse', function () {
 
 // -------- ABRIR CAMARA PARA HACER FOTO --------------------------------------------------------
 function hacerFoto() {
-    //iniciaMapa(false);
-
+    iniciaMapa(false);
     try {
     navigator.camera.getPicture(hacerfotoOK, hacerFotoERROR, { quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType: Camera.PictureSourceType.CAMERA, encodingType: Camera.EncodingType.JPEG, saveToPhotoAlbum: false });
-//navigator.device.capture.captureImage(hacerfotoOK, hacerFotoERROR, {limit:1});
-}
-catch (e) {
-    alert('Exception : ' + e.message);
+    //navigator.device.capture.captureImage(hacerfotoOK, hacerFotoERROR, {limit:1});
+    }
+    catch (e) {
+        alert('Exception : ' + e.message);
     }
 }
 
@@ -58,20 +61,14 @@ function hacerfotoOK(imageData) {
     var imagen = document.getElementById('imgFoto');
     imagen.style.display = 'block';
     imagen.src = "data:image/jpeg;base64," + imageData;
-    mensaje('Capturada : ' + imageData[0]);
     }
 
 function hacerFotoERROR(error) {
-    mensaje('Error capturant : ' + error.code);
+    mensaje('Cap foto caprutada ' + error.code);
     }
 
 
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
-$('#pageNuevaIncidencia').live('pageinit', function () {
-    alert('mapa');
-    iniciaMapa(true);
-    });
-
 function iniciaMapa(bAbrir) {
     var mapOptions = {
     zoom: 14,
