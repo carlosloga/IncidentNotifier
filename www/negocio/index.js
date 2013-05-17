@@ -1,4 +1,4 @@
-﻿// funciones COMUNES -----------------------------------------------------------------------
+// funciones COMUNES -----------------------------------------------------------------------
 var pictureSource;
 var destinationType;
 var map;
@@ -6,6 +6,7 @@ var pos = null;
 var global_AjaxERROR = '';
 var global_AjaxRESULTADO = null;
 var sDireccion = '';
+var sFoto = '';
 
 window.addEventListener('load', function () {
     if (phoneGapRun()) {
@@ -34,8 +35,13 @@ function deviceReady() {
 function abrirPagina(sPag) {
     switch(sPag)
     {
-        case 'pageNuevaIncidencia'  :
+        case 'pageNuevaIncidencia' :
+            sFoto = '';
             iniciaMapa(true);
+            break;
+
+        case 'pageZoomFoto' :
+            zoomFoto();
             break;
     }
 
@@ -46,7 +52,7 @@ function abrirPagina(sPag) {
     });
 }
 
-// -------- ABRIR CAMARA PARA HACER FOTO --------------------------------------------------------
+// -------- FOTO -------------------------------------------------------------------------
 function hacerFoto() {
     iniciaMapa(false);
     try {
@@ -61,13 +67,18 @@ function hacerFoto() {
 function hacerfotoOK(imageData) {
     var imagen = document.getElementById('imgFoto');
     imagen.style.display = 'block';
-    imagen.src = "data:image/jpeg;base64," + imageData;
+    sFoto = "data:image/jpeg;base64," + imageData;
+    imagen.src = sFoto;
     }
 
 function hacerFotoERROR(error) {
     mensaje('Cap foto caprutada ' + error.code);
     }
 
+function zoomFoto(){
+    $('#imgZoomFoto').attr({ src: sFoto });
+    abrirPagina('pageZoomFoto');
+}
 
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
 function iniciaMapa(bAbrir) {
