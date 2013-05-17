@@ -25,7 +25,7 @@
 
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 </head>
-<body onload="onLoad()">
+<body>
 <!-- Página Principal  -->
     <div data-role="page" id="pageIndex">
         <div data-role="header" data-theme="f">
@@ -124,36 +124,24 @@
         // funciones COMUNES -----------------------------------------------------------------------
         var pictureSource;
         var destinationType;
-        var deviceReadyDeferred = $.Deferred();
-        var jqmReadyDeferred = $.Deferred();
 
-        function onLoad(){
-            if (phoneGapRun()) {        alert('PG ok');
+        window.addEventListener('load', function () {
+            if (phoneGapRun()) {
                 document.addEventListener("deviceReady", deviceReady, false);
-            } else {            alert('PG no');
+            } else {
                 deviceReady();
             }
-        }
+        }, false);
 
-        function deviceReady() {     alert('dr');
-            jqmReadyDeferred.resolve();
-        }
-
-        $(document).on("mobileinit", function () { alert('mobileInit');
-            jqmReadyDeferred.resolve();
-        });
-
-        if (phoneGapRun())
-            $.when(deviceReadyDeferred, jqmReadyDeferred).then(doInit);
-        else
-            $.when(jqmReadyDeferred).then(doInit);
-
-        function doInit() {
-            alert('doInit');
+        function deviceReady() {
+            alert('dReady');
             if (phoneGapRun()) {
                 pictureSource = navigator.camera.PictureSourceType;
                 destinationType = navigator.camera.DestinationType;
             }
+            $(document).on("mobileinit", function () {
+                alert('mobileInit');
+            });
         }
 
         function abrirPagina(sPag) {
