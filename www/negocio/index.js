@@ -72,7 +72,6 @@ function hacerFotoERROR(error) {
     }
 
 function zoomFoto(){
-    $('#imgZoomFoto').attr({ src: sFoto });
     var imagen = document.getElementById('imgZoomFoto');
     imagen.style.display = 'block';
     imagen.src = sFoto;
@@ -80,7 +79,13 @@ function zoomFoto(){
 }
 
 function eliminarFoto(){
-     alert('elimino');
+    var imagen = document.getElementById('imgFoto');
+    imagen.style.display = 'block';
+    imagen.src = '';
+
+    imagen = document.getElementById('imgZoomFoto');
+    imagen.style.display = 'block';
+    imagen.src = '';
 }
 
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
