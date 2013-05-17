@@ -39,10 +39,6 @@ function abrirPagina(sPag) {
             sFoto = '';
             iniciaMapa(true);
             break;
-
-        case 'pageZoomFoto' :
-            zoomFoto();
-            break;
     }
 
     $.mobile.changePage('#' + sPag, {
@@ -77,6 +73,9 @@ function hacerFotoERROR(error) {
 
 function zoomFoto(){
     $('#imgZoomFoto').attr({ src: sFoto });
+    var imagen = document.getElementById('imgZoomFoto');
+    imagen.style.display = 'block';
+    imagen.src = sFoto;
     abrirPagina('pageZoomFoto');
 }
 
