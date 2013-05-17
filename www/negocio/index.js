@@ -32,6 +32,7 @@ function deviceReady() {
         alert('mobileInit');
     });
 }
+
 function abrirPagina(sPag) {
     switch(sPag)
     {
@@ -63,18 +64,18 @@ function hacerFoto() {
 function hacerfotoOK(imageData) {
     var imagen = document.getElementById('imgFoto');
     imagen.style.display = 'block';
-    sFoto = "data:image/jpeg;base64," + imageData;
-    imagen.src = sFoto;
+    sFoto = imageData;
+    imagen.src = "data:image/jpeg;base64," + sFoto;
     }
 
 function hacerFotoERROR(error) {
-    mensaje('Cap foto caprutada ' + error.code);
+    mensaje('Cap foto caprutada !  ' + error.code);
     }
 
 function zoomFoto(){
     var imagen = document.getElementById('imgZoomFoto');
     imagen.style.display = 'block';
-    imagen.src = sFoto;
+    imagen.src = "data:image/jpeg;base64," + sFoto;
     abrirPagina('pageZoomFoto');
 }
 
@@ -168,7 +169,19 @@ return sDireccion;
 
 // -------- ENVIAR INCIDENCIA -----------------------------------------------------------------------
 function enviarIncidencia() {
-    mensaje('enviando ando ...');
+    var sObs = $('#textareaComentari').val();
+    var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
+    //sDireccion
+    //Foto
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/NuevaIncidencia.asmx?OBS=" + sObs + "&COORD=" + sCoord + "&DIR=" + sDireccion + "&FOTO=" + sFoto ;
+alert(llamaWS);
+    datos = LlamaWebService('GET', llamaWS, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
+    if (global_AjaxERROR != '')
+        mensaje(global_AjaxERROR);
+    else
+    {
+        mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
     }
+}
 
 
