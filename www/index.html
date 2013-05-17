@@ -128,21 +128,18 @@
         var jqmReadyDeferred = $.Deferred();
 
         function onLoad(){
-            alert('load');
-            if (phoneGapRun()) {
+            if (phoneGapRun()) {        alert('PG ok');
                 document.addEventListener("deviceReady", deviceReady, false);
-            } else {
+            } else {            alert('PG no');
                 deviceReady();
             }
         }
 
-        function deviceReady() {
-            alert('dR');
+        function deviceReady() {     alert('dr');
             jqmReadyDeferred.resolve();
         }
 
-        $(document).one("mobileinit", function () {
-            alert('mobileinit');
+        $(document).on("mobileinit", function () { alert('mobileInit');
             jqmReadyDeferred.resolve();
         });
 
@@ -206,6 +203,7 @@
 
         // -------- LOCALIZACIÓN -----------------------------------------------------------------------
         $('#pageNuevaIncidencia').live('pageinit', function () {
+            alert('mapa');
             iniciaMapa(true);
         });
 
