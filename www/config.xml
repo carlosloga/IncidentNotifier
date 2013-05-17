@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.settingconsultoria.incidenciesAdvisor"
+        id        = "com.settingconsultoria.IncidentNotifier"
         version   = "1.0.0">
 
-  <name>Incidencies Advisor</name>
+  <name>Incident Notifier</name>
 
   <description>
-    Comunicador d'incidències
+    Notificador d'incidències
   </description>
 
   <author href="http://www.Settingconsultoria.com" email="carlosloga@gmail.com">
