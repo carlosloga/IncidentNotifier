@@ -176,7 +176,7 @@ function enviarIncidencia() {
               //LlamaWebService(sTipoLlamada, sUrl,    sContentType,                        bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam)
     try
     {
-        datos = LlamaWebService('GET',llamaWS,'application/x-www-form-urlencoded',true,'xml',false,false,10000,null,null);
+        datos = LlamaWebService('POST',llamaWS,'application/x-www-form-urlencoded',true,'xml',false,false,10000,null,null);
         if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
             mensaje(global_AjaxERROR);
         else
