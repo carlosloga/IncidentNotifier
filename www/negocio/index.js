@@ -102,7 +102,7 @@ function iniciaMapa(bAbrir) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-            sDireccion = cogerDireccion(pos);
+            cogerDireccion(pos);
 
             var infowindow = new google.maps.InfoWindow({
                 map: map,
@@ -164,7 +164,6 @@ function cogerDireccion(pos) {
         n++;
         });
     }
-return sDireccion;
 }
 
 // -------- ENVIAR INCIDENCIA -----------------------------------------------------------------------
@@ -174,15 +173,23 @@ function enviarIncidencia() {
     //sDireccion
     //Foto
     var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?OBS=" + sObs + "&COORD=" + sCoord + "&DIR=" + sDireccion + "&FOTO=" + sFoto ;
-alert(llamaWS);
-    datos = LlamaWebService('GET', llamaWS, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
-    if (global_AjaxERROR != '')
-        mensaje(global_AjaxERROR);
-    else
+              //LlamaWebService(sTipoLlamada, sUrl,    sContentType,                        bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam)
+    try
     {
-        mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
-        mensaje(global_AjaxRESULTADO.toString());
+        datos = LlamaWebService('GET',        llamaWS, 'application/x-www-form-urlencoded', true,      'xml',     false,     false,  10000,    null,    null);
+        if (global_AjaxERROR != '')
+            mensaje(global_AjaxERROR);
+        else
+        {
+            mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
+            mensaje(global_AjaxRESULTADO.toString());
+        }
     }
+    catch (e)
+    {
+        mensaje('ERROR (exception) cridant al WS : \n' + e.code + '\n' + e.message);
+    }
+
 }
 
 
