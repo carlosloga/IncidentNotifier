@@ -177,7 +177,7 @@ function enviarIncidencia() {
     try
     {
         datos = LlamaWebService('GET',        llamaWS, 'application/x-www-form-urlencoded', true,      'xml',     false,     false,  10000,    null,    null);
-        if (global_AjaxERROR != '')
+        if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
             mensaje(global_AjaxERROR);
         else
         {

@@ -23,7 +23,8 @@ function LlamaWebService(sTipoLlamada, sUrl,sContentType, bCrossDom, sDataType, 
             else return global_AjaxRESULTADO;
         },
         error: function (e, f, g) { alert('error');
-            global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + ws + '  ' + sUrl + ' amb ' + sParametros;
+            //global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + ws + '  ' + sUrl + ' amb ' + sParametros;
+            global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + sUrl;
             alert(global_AjaxERROR);
             if (funcion != null) funcion(global_AjaxERROR, pasaParam);
         },
