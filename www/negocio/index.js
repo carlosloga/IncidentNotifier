@@ -173,7 +173,7 @@ function enviarIncidencia() {
     var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
     //sDireccion
     //Foto
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/NuevaIncidencia.asmx?OBS=" + sObs + "&COORD=" + sCoord + "&DIR=" + sDireccion + "&FOTO=" + sFoto ;
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?OBS=" + sObs + "&COORD=" + sCoord + "&DIR=" + sDireccion + "&FOTO=" + sFoto ;
 alert(llamaWS);
     datos = LlamaWebService('GET', llamaWS, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
     if (global_AjaxERROR != '')
@@ -181,6 +181,7 @@ alert(llamaWS);
     else
     {
         mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
+        mensaje(global_AjaxRESULTADO.toString());
     }
 }
 
