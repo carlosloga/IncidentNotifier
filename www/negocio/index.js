@@ -172,7 +172,7 @@ function enviarIncidencia() {
     var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
     //sDireccion
     //Foto
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?OBS=" + sObs + "&COORD=" + sCoord + "&DIR=" + sDireccion + "&FOTO=" + sFoto ;
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto ;
               //LlamaWebService(sTipoLlamada, sUrl,    sContentType,                        bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam)
     try
     {
