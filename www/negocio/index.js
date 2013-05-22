@@ -41,8 +41,8 @@ function limpiaVariables(sPag){
     {
         case 'pageNuevaIncidencia' :
             sFoto = '';
-            sDireccion = '';
-            pos = null;
+            sDireccionAlta = '';
+            posAlta = null;
             mapAlta = null;
             break;
     }

@@ -159,6 +159,7 @@ function resultadoEnvio(resultado, param){
         mensaje(global_AjaxERROR);
     else
     {
+        eliminarFoto();
         limpiaVariables('pageNuevaIncidencia');
         mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
         abrirPagina('pageIndex');
