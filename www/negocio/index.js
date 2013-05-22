@@ -1,7 +1,8 @@
 // funciones COMUNES -----------------------------------------------------------------------
 var pictureSource;
 var destinationType;
-var map;
+var mapAlta;
+var mapConsulta;
 var pos = null;
 var global_AjaxERROR = '';
 var global_AjaxRESULTADO = null;
@@ -27,10 +28,6 @@ function deviceReady() {
     $('#collapsibleComentario').bind('collapse', function () {
         $('#labelComentari').text( $('#textareaComentari').val() );
     });
-
-    $(document).on("mobileinit", function () {
-        alert('mobileInit');
-    });
 }
 
 function abrirPagina(sPag) {
@@ -38,7 +35,7 @@ function abrirPagina(sPag) {
     {
         case 'pageNuevaIncidencia' :
             sFoto = '';
-            iniciaMapa(true);
+            iniciaMapaAlta(true);
             break;
     }
 
@@ -51,7 +48,7 @@ function abrirPagina(sPag) {
 
 // -------- FOTO -------------------------------------------------------------------------
 function hacerFoto() {
-    iniciaMapa(false);
+    iniciaMapaAlta(false);
     try {
     navigator.camera.getPicture(hacerfotoOK, hacerFotoERROR, { quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType: Camera.PictureSourceType.CAMERA, encodingType: Camera.EncodingType.JPEG, saveToPhotoAlbum: false });
     //navigator.device.capture.captureImage(hacerfotoOK, hacerFotoERROR, {limit:1});
@@ -92,12 +89,13 @@ function eliminarFoto(){
 }
 
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
-function iniciaMapa(bAbrir) {
+function iniciaMapaAlta(bAbrir) {
     var mapOptions = {
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById('divMapa'), mapOptions);
+
+    mapAlta = new google.maps.Map(document.getElementById('divMapaAlta'), mapOptions);
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
@@ -107,7 +105,7 @@ function iniciaMapa(bAbrir) {
             cogerDireccion(pos);
 
             var infowindow = new google.maps.InfoWindow({
-                map: map,
+                map: mapAlta,
                 position: pos,
                 content: '<div><table><tr><td style="font-size:x-small; font-weight:bold;">reportar incidència en </td></tr><tr><td style="font-size:x-small; font-weight:normal;">' + sDireccion + '</td></tr></table></div>',
                 maxWidth: 300
@@ -115,15 +113,15 @@ function iniciaMapa(bAbrir) {
 
     var marker = new google.maps.Marker({
         position: pos,
-        map: map,
+        map: mapAlta,
         title: 'incidència aquí'
         });
 
-    map.setCenter(pos);
+    mapAlta.setCenter(pos);
 
     $('#labelDireccion').text(sDireccion);
 
-    $('#divMapa').gmap('refresh');
+    $('#divMapaAlta').gmap('refresh');
 
     if (!bAbrir) $('#collapsibleLocalizacion').trigger('collapse');
 
@@ -142,19 +140,21 @@ function handleNoGeolocation(errorFlag) {
     content = 'Error: el seu navegador no soporta geolocalització';
     }
     var options = {
-        map: map,
+        map: mapAlta,
         position: new google.maps.LatLng(41.97430, 2.78241),
         content: content
         };
     var infowindow = new google.maps.InfoWindow(options);
-    map.setCenter(options.position);
+    mapAlta.setCenter(options.position);
 }
 
 function cogerDireccion(pos) {
     sDireccion = '';
-    var llamaWS = "http://maps.googleapis.com/maps/api/geocode/xml?latlng=" + pos.toString().replace(" ", "").replace("(","").replace(")","") + "&sensor=true";
-    //alert(llamaWS);
-    datos = LlamaWebService('GET', llamaWS, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
+    var llamaWS = "http://maps.googleapis.com/maps/api/geocode/xml";
+    var sParam =  "latlng=" + pos.toString().replace(" ", "").replace("(","").replace(")","") + "&sensor=true";
+    //alert(sParam);
+
+    datos = LlamaWebService('GET', llamaWS,sParam, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
     if (global_AjaxERROR != '')
         alert(global_AjaxERROR);
     else
@@ -185,7 +185,7 @@ function enviarIncidencia() {
     }
     catch (e)
     {
-        mensaje('ERROR (exception) cridant al WS : \n' + e.code + '\n' + e.message);
+        mensaje('ERROR (exception) en enviarIncidencia : \n' + e.code + '\n' + e.message);
     }
 }
 
@@ -198,8 +198,9 @@ function resultadoEnvio(resultado, param)
     else
     {
         mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
-        mensaje(global_AjaxRESULTADO.toString());
     }
 }
+
+
 
 

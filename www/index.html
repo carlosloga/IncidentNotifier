@@ -1,16 +1,17 @@
 ﻿<!doctype html>
-<html lang="es">
+<html>
 <head>
     <meta charset="utf-8" />
-    <title>Incidencies communicator</title>
+    <title>Incident notifier</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
-    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width; initial-scale=1" />
 
     <!-- !CSS -->
     <link href="css/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css" />
     <link href="css/jquery.mobile.datebox-1.0.1.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
 
     <script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
@@ -31,13 +32,12 @@
     <div data-role="page" id="pageIndex">
         <div data-role="header" data-theme="f">
             <a href="#" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-            <h3>Incidències communicator v.0</h3>
-            <a href="#pageInfo" data-rel="dialog" data-transition="pop" data-icon="info" data-iconpos="notext">Info</a>
+            <h3>Incident notifier v.0.1</h3>
+            <a href="" onclick="abrirPopUp('pageInfo')" data-rel="popup" data-transition="pop" data-icon="info" data-iconpos="notext">Info</a>
         </div>
 
         <div data-role="content" data-theme="a">
              <div data-role="controlgroup">
-                <!-- <a href="#pageNuevaIncidencia" id="buttonALTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Comunicar una incidència</a> -->
                  <a href="" onclick="abrirPagina('pageNuevaIncidencia')" id="buttonALTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Comunicar una incidència</a>
                 <hr />
                 <a href="" onclick="abrirPagina('pageConsultaIncidencias')" id="buttonCONSULTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Consultar incidències en la zona</a>
@@ -51,6 +51,7 @@
 
 <!-- Página NuevaIncidencia -->
     <div data-role="page" id="pageNuevaIncidencia">
+
     <div data-role="header" data-theme="f">
         <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
         <h3>Comunicació de nova incidència</h3>
@@ -59,88 +60,86 @@
 
     <div data-role="content" data-theme="a" data-mini="true">
         <div id="acordeon" data-role="collapsible-set" data-mini="true" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-l" data-thene="b" data-content-theme="b">
-            <div data-role="collapsible" data-mini="true" id="collapsibleFoto">   <!--data-collapsed="false"-->
-                    <h3><table style="width:100%;"><tr><td style="text-align:left; width:100%;">recollir proves</td><td style="text-align:right;"><a href="#" id="buttonCamara" onclick="hacerFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">càmara</a></td></tr></table></h3>
-                    <table style="width:100%;"><tr>
-                        <td style="text-align:left; width:100%;">
-                            <img id="imgFoto" src="" width="200px" alt="prova de la incidència" onclick="zoomFoto()" />
-                        </td>
-                        <td style="text-align:right;">
-                            <!-- <a href="#" id="buttonEliminarFoto" onclick="eliminarFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">el·liminar</a> -->
-                            <a href="#pageEliminarFoto" id="buttonEliminarFoto" data-rel="dialog" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-theme="b">el·liminar</a>
-                        </td>
-                    </tr></table>
-
-                </div>
-                <div data-role="collapsible" data-mini="true" id="collapsibleComentario">
-                    <h3><table style="width:100%;"><tr><td>comentari</td><td style="text-align:right;"><label id="labelComentari" style="font-size:x-small;"></label></td></tr></table></h3>
-                    <!--<textarea name="textareaComentari" id="textareaComentari" data-theme="b" cols="40" rows="3" data-mini="true"></textarea>-->
-                    <input type="text" name="textareaComentari" id="textareaComentari" value="" />
-                </div>
-                <div data-role="collapsible" data-mini="true" id="collapsibleLocalizacion" data-collapsed="false">
-                    <h3><table style="width:100%;"><tr><td>localització</td><td style="text-align:right;"><label id="labelDireccion" style="font-size:x-small;"></label></td></tr></table></h3>
-                    <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
-                        <div id="divMapa" style="height:200px;"></div>
-                    </div>
-                </div>
+            <div data-role="collapsible" data-mini="true" id="collapsibleFoto">
+                <h3><table style="width:100%;"><tr><td style="text-align:left; width:100%;">recollir proves</td><td style="text-align:right;"><a href="#" id="buttonCamara" onclick="hacerFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">càmara</a></td></tr></table></h3>
+                <table style="width:100%;"><tr>
+                    <td style="text-align:left; width:100%;">
+                        <img id="imgFoto" src="" width="200px" alt="prova de la incidència" onclick="zoomFoto()" />
+                    </td>
+                    <td style="text-align:right;">
+                        <a href="#pageEliminarFoto" id="buttonEliminarFoto" data-rel="dialog" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-theme="b">el·liminar</a>
+                    </td>
+                </tr></table>
             </div>
-            <div style="text-align:right;">
-                <a href="#" id="buttonEnviar" onclick="enviarIncidencia()" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="grid">ENVIAR</a>
+            <div data-role="collapsible" data-mini="true" id="collapsibleComentario">
+                <h3><table style="width:100%;"><tr><td>comentari</td><td style="text-align:right;"><label id="labelComentari" style="font-size:x-small;"></label></td></tr></table></h3>
+                <input type="text" name="textareaComentari" id="textareaComentari" value="" />
+            </div>
+            <div data-role="collapsible" data-mini="true" id="collapsibleLocalizacion" data-collapsed="false">
+                <h3><table style="width:100%;"><tr><td>localització</td><td style="text-align:right;"><label id="labelDireccion" style="font-size:x-small;"></label></td></tr></table></h3>
+                <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+                    <div id="divMapaAlta" style="height:200px;"></div>
+                </div>
             </div>
         </div>
-
-        <div data-role="footer" data-theme="f" data-position="fixed" style="text-align: center;">
-            <table style="width:100%;"><tr><td style="background-color:LightGrey; width:100%;"><label for="basic" id="labelPieNuevaIncidencia" style="color:Gray; font-size:small; font-weight:normal; background-color:LightGrey;">&#169;2013 SETTING Consultoria en T.I., S.L.</label></td></tr></table>
+        <div style="text-align:right;">
+            <a href="#" id="buttonEnviar" onclick="enviarIncidencia()" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="grid">ENVIAR</a>
         </div>
     </div>
+
+    <div data-role="footer" data-theme="f" data-position="fixed" style="text-align: center;">
+        <table style="width:100%;"><tr><td style="background-color:LightGrey; width:100%;"><label for="basic" id="labelPieNuevaIncidencia" style="color:Gray; font-size:small; font-weight:normal; background-color:LightGrey;">&#169;2013 SETTING Consultoria en T.I., S.L.</label></td></tr></table>
+    </div>
+</div>
 
 <!-- Página ConsultaIncidencias -->
     <div data-role="page" id="pageConsultaIncidencias">
-    <div data-role="header" data-theme="f">
-        <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-        <h3>Consulta d'incidències en la zona</h3>
-        <a href="#pageInfo" data-rel="dialog" data-transition="pop" data-icon="info" data-iconpos="notext">Info</a>
+        <div data-role="header" data-theme="f">
+            <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+            <h3>incidències reportades en la zona</h3>
+            <a href="#pageInfo" data-rel="dialog" data-transition="pop" data-icon="info" data-iconpos="notext">Info</a>
+        </div>
+        <div data-role="content" data-theme="a">
+            <div id="divMapaConsulta" style="height:300px;"></div>
+        </div>
+        <div data-role="footer" data-theme="f" data-position="fixed" style="text-align: center;">
+            <table style="width:100%;"><tr><td style="background-color:LightGrey; width:100%;"><label for="basic" style="color:Gray; font-size:small; font-weight:normal; background-color:LightGrey;">&#169;2013 SETTING Consultoria en T.I., S.L.</label></td></tr></table>
+        </div>
     </div>
-    <div data-role="content" data-theme="a">
-        <h3>Hola</h3>
-    </div>
-    <div data-role="footer" data-theme="f" data-position="fixed" style="text-align: center;">
-        <table style="width:100%;"><tr><td style="background-color:LightGrey; width:100%;"><label for="basic" style="color:Gray; font-size:small; font-weight:normal; background-color:LightGrey;">&#169;2013 SETTING Consultoria en T.I., S.L.</label></td></tr></table>
-    </div>
-</div>
 
 <!-- Página INFO -->
-<div data-role="popup" id="pageInfo" data-overlay-theme="a" data-theme="c" style="max-width:95%;" class="ui-corner-all">
-    <div data-role="header" data-theme="a">
-        <h3>info</h3>
+    <div data-role="popup" id="pageInfo" data-overlay-theme="a" data-theme="c" style="max-width:95%;" class="ui-corner-all">
+        <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1>info</h1>
+        </div>
+        <div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">quant a</h3>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ...
+            </p>
+        </div>
     </div>
-    <div data-role="content" data-theme="b">
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ...
-        </p>
-    </div>
-</div>
 
 <!-- Página ZOOM FOTO -->
-<div data-role="popup" id="pageZoomFoto" data-overlay-theme="a" data-theme="c" style="max-width:95%;" class="ui-corner-all">
-    <div data-role="content" data-theme="b">
-        <p>
-            <img id="imgZoomFoto" src="" width="100%" alt="prova de la incidència" />
-        </p>
+    <div data-role="popup" id="pageZoomFoto" data-theme="c" style="max-width:95%;" class="ui-corner-all">
+        <div data-role="content" data-theme="b">
+            <p>
+                <img id="imgZoomFoto" src="" width="100%" alt="prova de la incidència" />
+            </p>
+        </div>
     </div>
-</div>
 
 <!-- Página Eliminar FOTO -->
-<div data-role="popup" id="pageEliminarFoto" data-overlay-theme="a" data-theme="c" style="max-width:95%;" class="ui-corner-all">
-    <div data-role="header" data-theme="a" class="ui-corner-top">
-        <h1>El·liminar foto</h1>
+    <div data-role="popup" id="pageEliminarFoto" data-theme="c" style="max-width:95%;" class="ui-corner-all">
+        <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1>El·liminar foto</h1>
+        </div>
+        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Està segur/a que vol el·liminar ?</h3>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">cancel·lar</a>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" onclick="eliminarFoto()">el·liminar</a>
+        </div>
     </div>
-    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-        <h3 class="ui-title">Està segur/a que vol el·liminar ?</h3>
-        <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">cancel·lar</a>
-        <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" onclick="eliminarFoto()">el·liminar</a>
-    </div>
-</div>
 
 </body>
 </html>

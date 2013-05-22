@@ -9,3 +9,8 @@ function mensaje(msg) {
     else
         alert(msg);
 }
+
+function abrirPopUp(pag){
+    $.mobile.changePage("#" + pag, { transition: "pop", role: "dialog", reverse: true, changeHash: true });
+}
+
