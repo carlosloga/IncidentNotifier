@@ -28,7 +28,7 @@ function LlamaWebService(sTipoLlamada, sUrl,sContentType, bCrossDom, sDataType, 
 
             if (funcion != null) funcion(global_AjaxERROR, pasaParam);
         },
-        async: false
+        async: true
     });
     return global_AjaxRESULTADO;
 }
