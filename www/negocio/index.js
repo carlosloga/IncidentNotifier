@@ -9,6 +9,8 @@ var global_AjaxRESULTADO = null;
 var sDireccion = '';
 var sFoto = '';
 
+
+// -------- Al INICIAR -----------------------------------------------------------------------
 window.addEventListener('load', function () {
     if (phoneGapRun()) {
         document.addEventListener("deviceReady", deviceReady, false);
@@ -29,6 +31,8 @@ function deviceReady() {
         $('#labelComentari').text( $('#textareaComentari').val() );
     });
 }
+
+// -------- COMUNES -----------------------------------------------------------------------
 
 function abrirPagina(sPag) {
     switch(sPag)
@@ -153,18 +157,24 @@ function cogerDireccion(pos) {
     var llamaWS = "http://maps.googleapis.com/maps/api/geocode/xml";
     var sParam =  "latlng=" + pos.toString().replace(" ", "").replace("(","").replace(")","") + "&sensor=true";
     //alert(sParam);
-
-    datos = LlamaWebService('GET', llamaWS,sParam, 'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null);
-    if (global_AjaxERROR != '')
-        alert(global_AjaxERROR);
-    else
+    try
     {
-        sDireccion = $(datos).find('formatted_address').text();
-        var n = 0;
-        $(datos).find('formatted_address').each(function () {
-        if (n == 0) sDireccion = $(this).text();
-        n++;
-        });
+        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null, false);
+        if (global_AjaxERROR != '')
+            alert(global_AjaxERROR);
+        else
+        {
+            sDireccion = $(datos).find('formatted_address').text();
+            var n = 0;
+            $(datos).find('formatted_address').each(function () {
+                if (n == 0) sDireccion = $(this).text();
+                n++;
+            });
+        }
+    }
+    catch (e)
+    {
+        mensaje('ERROR (exception) en cogerDireccion : \n' + e.code + '\n' + e.message);
     }
 }
 
@@ -181,7 +191,7 @@ function enviarIncidencia() {
 
     try
     {
-        var datos = LlamaWebService('POST',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
+        var datos = LlamaWebService('POST',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null, true);
     }
     catch (e)
     {
@@ -191,8 +201,6 @@ function enviarIncidencia() {
 
 function resultadoEnvio(resultado, param)
 {
-    mensaje('en resultadoEnvio : ' + resultado.toString());
-
     if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
         mensaje(global_AjaxERROR);
     else

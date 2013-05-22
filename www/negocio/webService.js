@@ -1,7 +1,7 @@
 ﻿
 // ********************* METODOS PARA EL ACCESO A WebServices Y OBTENCIÓN DE DATOS ********************************
 
-function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam) {
+function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam, sincro) {
     global_AjaxRESULTADO = null;
     global_AjaxERROR = '';
     $.ajax({
@@ -26,7 +26,7 @@ function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom,
             global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + sUrl;
             if (funcion != null) funcion(global_AjaxERROR, pasaParam);
         },
-        async: true
+        async: sincro
     });
     return global_AjaxRESULTADO;
 }
