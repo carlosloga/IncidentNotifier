@@ -171,16 +171,16 @@ function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
     var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
 
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto;
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
+    var sParam = "sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto;
     try
     {
-        var datos = LlamaWebService('GET',llamaWS,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
+        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
     }
     catch (e)
     {
         mensaje('ERROR (exception) cridant al WS : \n' + e.code + '\n' + e.message);
     }
-
 }
 
 function resultadoEnvio(resultado, param)
