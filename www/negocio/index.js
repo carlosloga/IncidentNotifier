@@ -80,13 +80,15 @@ function zoomFoto(){
 }
 
 function eliminarFoto(){
+    sFoto = '';
+
     var imagen = document.getElementById('imgFoto');
     imagen.style.display = 'block';
-    imagen.src = '';
+    imagen.src = sFoto;
 
     imagen = document.getElementById('imgZoomFoto');
     imagen.style.display = 'block';
-    imagen.src = '';
+    imagen.src = sFoto;
 }
 
 // -------- LOCALIZACIÓN -----------------------------------------------------------------------
@@ -172,10 +174,14 @@ function enviarIncidencia() {
     var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
 
     var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
-    var sParam = "sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto;
+    var sParam  = "sObs=" + sObs;
+        sParam += "&sCoord=" + sCoord;
+        sParam += "&sDir=" + sDireccion;
+        sParam += "&sFoto=" + sFoto;
+
     try
     {
-        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
+        var datos = LlamaWebService('POST',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
     }
     catch (e)
     {
