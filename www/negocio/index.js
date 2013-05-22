@@ -170,26 +170,30 @@ function cogerDireccion(pos) {
 function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
     var sCoord = pos.toString().replace(" ", "").replace("(","").replace(")","")
-    //sDireccion
-    //Foto
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto ;
-              //LlamaWebService(sTipoLlamada, sUrl,    sContentType,                        bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam)
+
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia?sObs=" + sObs + "&sCoord=" + sCoord + "&sDir=" + sDireccion + "&sFoto=" + sFoto;
     try
     {
-        datos = LlamaWebService('POST',llamaWS,'application/x-www-form-urlencoded',true,'xml',false,false,10000,null,null);
-        if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
-            mensaje(global_AjaxERROR);
-        else
-        {
-            mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
-            mensaje(global_AjaxRESULTADO.toString());
-        }
+        var datos = LlamaWebService('GET',llamaWS,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null);
     }
     catch (e)
     {
         mensaje('ERROR (exception) cridant al WS : \n' + e.code + '\n' + e.message);
     }
 
+}
+
+function resultadoEnvio(resultado, param)
+{
+    mensaje('en resultadoEnvio : ' + resultado.toString());
+
+    if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
+        mensaje(global_AjaxERROR);
+    else
+    {
+        mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
+        mensaje(global_AjaxRESULTADO.toString());
+    }
 }
 
 
