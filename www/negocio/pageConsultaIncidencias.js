@@ -17,16 +17,11 @@ function iniciaMapaConsulta() {
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
             //sDireccionConsulta = cogerDireccionConsulta(posConsulta);
-            var lat = 0.0;
-            var lon = 0.0;
-            for(var x=0; x < 4; x++){
-                lat = parseFloat(position.coords.latitude) + 0.1;
-                lon = parseFloat(position.coords.longitude)  + 0.1;
-mensaje(lat.toString() + ' ... ' + lon.toString())
-                posConsulta = new google.maps.LatLng(lat.toString(),lon.toString());
-                sDireccionConsulta = "Pos " + x.toString();
-                nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
-            }
+
+            posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+mensaje(posConsulta);
+            sDireccionConsulta = "Pos 1";
+            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
 
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             mapConsulta.setCenter(posConsulta);
