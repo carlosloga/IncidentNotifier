@@ -22,14 +22,6 @@ function iniciaMapaConsulta() {
             sDireccionConsulta = "Pos actual";
             nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
 
-            var p = new google.maps.LatLng(41.4866667, 2.0933333);
-            sDireccionConsulta = "Pos 2";
-            nuevoMarcadorSobrePlano(mapConsulta , p, sDireccionConsulta);
-
-            p = new google.maps.LatLng(41.4966667, 2.0988333);
-            sDireccionConsulta = "Pos 3";
-            nuevoMarcadorSobrePlano(mapConsulta , p, sDireccionConsulta);
-
             $('#divMapaConsulta').gmap('refresh');
 
         }, function () { getCurrentPositionError(true); });
