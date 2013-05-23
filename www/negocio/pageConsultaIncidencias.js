@@ -14,28 +14,22 @@ function iniciaMapaConsulta() {
     // Try HTML5 geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
+
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
             //sDireccionConsulta = cogerDireccionConsulta(posConsulta);
 
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            sDireccionConsulta = "Pos 1";
+            sDireccionConsulta = "Pos actual";
             nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
 
+            var p = new google.maps.LatLng(41.4866667, 2.0933333);
             sDireccionConsulta = "Pos 2";
-            posConsulta = '{"kb":2.1530865999999614,"jb":41.3968802}';
-            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
+            nuevoMarcadorSobrePlano(mapConsulta , p, sDireccionConsulta);
 
+            p = new google.maps.LatLng(41.4966667, 2.0988333);
             sDireccionConsulta = "Pos 3";
-            posConsulta = '{"kb":2.1550865999999614,"jb":41.3988802}';
-            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
-
-            sDireccionConsulta = "Pos 4";
-            posConsulta = '{"kb":2.1570865999999614,"jb":41.3998802}';
-            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
-
-            posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            mapConsulta.setCenter(posConsulta);
+            nuevoMarcadorSobrePlano(mapConsulta , p, sDireccionConsulta);
 
             $('#divMapaConsulta').gmap('refresh');
 
