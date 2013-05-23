@@ -19,8 +19,19 @@ function iniciaMapaConsulta() {
             //sDireccionConsulta = cogerDireccionConsulta(posConsulta);
 
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-mensaje(posConsulta);
             sDireccionConsulta = "Pos 1";
+            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
+
+            sDireccionConsulta = "Pos 2";
+            posConsulta = '{"kb":2.1530865999999614,"jb":41.3968802}';
+            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
+
+            sDireccionConsulta = "Pos 3";
+            posConsulta = '{"kb":2.1550865999999614,"jb":41.3988802}';
+            nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
+
+            sDireccionConsulta = "Pos 4";
+            posConsulta = '{"kb":2.1570865999999614,"jb":41.3998802}';
             nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
 
             posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
