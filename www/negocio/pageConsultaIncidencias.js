@@ -18,12 +18,13 @@ function iniciaMapaConsulta() {
 
             //sDireccionConsulta = cogerDireccionConsulta(posConsulta);
 
-            var marker = new google.maps.Marker({
-                position: posConsulta,
-                map: mapConsulta,
-                title: sDireccionConsulta
-            });
+            for(var x=0; x < 8; x++){
+                posConsulta = new google.maps.LatLng(position.coords.latitude + 0.1, position.coords.longitude + 0.1);
+                sDireccionConsulta = "Pos " + x.toString();
+                nuevoMarcadorSobrePlano(mapConsulta , posConsulta, sDireccionConsulta);
+            }
 
+            posConsulta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             mapConsulta.setCenter(posConsulta);
 
             $('#divMapaConsulta').gmap('refresh');
@@ -34,3 +35,4 @@ function iniciaMapaConsulta() {
         getCurrentPositionError(false);
     }
 }
+

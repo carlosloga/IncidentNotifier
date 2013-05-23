@@ -14,6 +14,14 @@ function abrirPopUp(pag){
     $.mobile.changePage("#" + pag, { transition: "pop", role: "dialog", reverse: true, changeHash: true });
 }
 
+function nuevoMarcadorSobrePlano(mapa, pos, texto){
+    var marker = new google.maps.Marker({
+        position: pos,
+        map: mapa,
+        title: texto
+    });
+}
+
 function getCurrentPositionError(errorFlag) {
     var content = '';
     if (errorFlag) {

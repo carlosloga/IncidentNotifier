@@ -69,12 +69,14 @@ function iniciaMapaAlta(bAbrir) {
                 maxWidth: 300
             });
 
+            nuevoMarcadorSobrePlano(mapAlta,posAlta,sDireccionAlta);
+ /*
             var marker = new google.maps.Marker({
                 position: posAlta,
                 map: mapAlta,
                 title: 'incidència aquí'
             });
-
+*/
             mapAlta.setCenter(posAlta);
 
             $('#labelDireccion').text(sDireccionAlta);
