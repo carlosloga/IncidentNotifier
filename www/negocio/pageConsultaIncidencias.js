@@ -1,4 +1,3 @@
-var mapConsulta;
 var mapConsulta = null;
 var posConsulta = '';
 var sDireccionConsulta = '';
