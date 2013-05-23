@@ -40,9 +40,9 @@
 
         <div data-role="content" data-theme="a">
              <div data-role="controlgroup">
-                 <a href="" onclick="abrirPagina('pageNuevaIncidencia')" id="buttonALTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Comunicar una incidència</a>
+                 <a href="" onclick="abrirPagina('pageNuevaIncidencia')" id="buttonALTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Comunicar una nova incidència</a>
                 <hr />
-                <a href="" onclick="abrirPagina('pageConsultaIncidencias')" id="buttonCONSULTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Consultar incidències en la zona</a>
+                <a href="" onclick="abrirPagina('pageConsultaIncidencias')" id="buttonCONSULTA" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="arrow-r">Consultar incidències existents en la zona</a>
             </div>
         </div>
 
@@ -56,36 +56,37 @@
 
     <div data-role="header" data-theme="f">
         <a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-        <h3>Comunicació de nova incidència</h3>
+        <h3>Nova incidència</h3>
         <a href="#pageInfo" data-rel="dialog" data-transition="pop" data-icon="info" data-iconpos="notext">Info</a>
     </div>
 
     <div data-role="content" data-theme="a" data-mini="true">
         <div id="acordeon" data-role="collapsible-set" data-mini="true" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-l" data-thene="b" data-content-theme="b">
             <div data-role="collapsible" data-mini="true" id="collapsibleFoto">
-                <h3><table style="width:100%;"><tr><td style="text-align:left; width:100%;">recollir proves</td><td style="text-align:right;"><a href="#" id="buttonCamara" onclick="hacerFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">càmara</a></td></tr></table></h3>
+                <h3><table style="width:100%;"><tr><td style="text-align:left; width:100%;">recollir prova fotogràfica</td><td style="text-align:right;"><a href="#" id="buttonCamara" onclick="hacerFoto()"  data-mini="true" data-inline="true" data-role="button" data-theme="b" data-icon="false">càmara</a></td></tr></table></h3>
+
                 <table style="width:100%;"><tr>
                     <td style="text-align:left; width:100%;">
-                        <img id="imgFoto" src="" width="200px" onclick="zoomFoto()" />
+                        <img id="imgFoto" src="" width="200px" border='1' onclick="zoomFoto()" />
                     </td>
                     <td style="text-align:right;">
-                        <a href="#pageEliminarFoto" id="buttonEliminarFoto" data-rel="dialog" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-theme="b">el·liminar</a>
+                        <a href="#pageEliminarFoto" id="buttonEliminarFoto" data-rel="dialog" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-theme="b" data-mini="true">el·liminar</a>
                     </td>
                 </tr></table>
             </div>
             <div data-role="collapsible" data-mini="true" id="collapsibleComentario">
-                <h3><table style="width:100%;"><tr><td>comentari</td><td style="text-align:right;"><label id="labelComentari" style="font-size:x-small;"></label></td></tr></table></h3>
+                <h3><table style="width:100%;"><tr><td>afegir un comentari</td><td style="text-align:right;"><label id="labelComentari" style="font-size:x-small;"></label></td></tr></table></h3>
                 <input type="text" name="textareaComentari" id="textareaComentari" value="" />
             </div>
-            <div data-role="collapsible" data-mini="true" id="collapsibleLocalizacion" data-collapsed="false">
-                <h3><table style="width:100%;"><tr><td>localització</td><td style="text-align:right;"><label id="labelDireccion" style="font-size:x-small;"></label></td></tr></table></h3>
+            <div data-role="collapsible" data-mini="true" id="collapsibleLocalizacion" data-collapsed="true">
+                <h3><table style="width:100%;"><tr><td>ubicació sobre mapa</td><td style="text-align:right;"><label id="labelDireccion" style="font-size:x-small;"></label></td></tr></table></h3>
                 <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
                     <div id="divMapaAlta" style="height:200px;"></div>
                 </div>
             </div>
         </div>
         <div style="text-align:right;">
-            <a href="#" id="buttonEnviar" onclick="enviarIncidencia()" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="grid">ENVIAR</a>
+            <a href="#" id="buttonEnviar" onclick="enviarIncidencia()" data-mini="true" data-inline="false" data-role="button" data-theme="b" data-icon="grid">ENVIAR LA INCIDÈNCIA</a>
         </div>
     </div>
 
@@ -123,10 +124,11 @@
     </div>
 
 <!-- Página ZOOM FOTO -->
-    <div data-role="popup" id="pageZoomFoto" data-theme="c" style="max-width:95%;" class="ui-corner-all">
+    <div data-role="popup" id="pageZoomFoto" data-theme="c" style="max-width:95%;" class="ui-corner-all" data-add-back-btn="true" data-back-btn-text="Back">
         <div data-role="content" data-theme="b">
             <p>
-                <img id="imgZoomFoto" src="" width="100%" />
+                <img id="imgZoomFoto" src="" border='1' width="100%" />
+                <a href="#pageNuevaIncidencia" data-rel="back" data-role="button" data-mini="true" >tornar</a>
             </p>
         </div>
     </div>
@@ -138,14 +140,20 @@
         </div>
         <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
             <h3 class="ui-title">Està segur/a que vol el·liminar ?</h3>
-            <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">cancel·lar</a>
-            <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" onclick="eliminarFoto()">el·liminar</a>
+            <a href="#" data-role="button" data-mini="true" data-inline="true" data-rel="back" data-theme="c">cancel·lar</a>
+            <a href="#" data-role="button" data-mini="true" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" onclick="eliminarFoto()">el·liminar</a>
         </div>
     </div>
 
+<!-- JAVASCRIPT -->
     <script type="text/javascript">
         // EVENTOS ----------------------------------------------------------------------------------------------------------
         //En pageNuevaIncidencia, al cerrarse el aordeón del Comentari, que se ponga el texto en su cabecera ----------------
+
+        $('#collapsibleComentario').bind('expand', function () {
+            $('#textareaComentari').focus();
+        });
+
         $('#collapsibleComentario').bind('collapse', function () {
             $('#labelComentari').text( $('#textareaComentari').val() );
         });

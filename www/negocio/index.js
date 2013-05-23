@@ -24,9 +24,12 @@ function abrirPagina(sPag) {
     switch(sPag)
     {
         case 'pageNuevaIncidencia' :
-            sFoto = '';
             iniciaMapaAlta(true);
-            break;
+        break;
+
+        case 'pageConsultaIncidencias' :
+            iniciaMapaConsulta();
+        break;
     }
 
     $.mobile.changePage('#' + sPag, {
@@ -42,8 +45,10 @@ function limpiaVariables(sPag){
         case 'pageNuevaIncidencia' :
             sFoto = '';
             sDireccionAlta = '';
-            posAlta = null;
+            posAlta = '';
             mapAlta = null;
+            $('#labelComentari').text('');
+            $('#textareaComentari').val('');
             break;
     }
 }

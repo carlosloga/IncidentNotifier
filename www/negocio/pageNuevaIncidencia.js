@@ -1,5 +1,5 @@
-var mapAlta;
-var posAlta = null;
+var mapAlta = null;
+var posAlta = '';
 var global_AjaxERROR = '';
 var global_AjaxRESULTADO = null;
 var sDireccionAlta = '';
@@ -10,7 +10,6 @@ function hacerFoto() {
     iniciaMapaAlta(false);
     try {
         navigator.camera.getPicture(hacerfotoOK, hacerFotoERROR, { quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType: Camera.PictureSourceType.CAMERA, encodingType: Camera.EncodingType.JPEG, saveToPhotoAlbum: false });
-        //navigator.device.capture.captureImage(hacerfotoOK, hacerFotoERROR, {limit:1});
     }
     catch (e) {
         alert('Exception : ' + e.message);
@@ -86,12 +85,12 @@ function iniciaMapaAlta(bAbrir) {
 
         }, function () { getCurrentPositionError(true); });
     } else {
-        // Browser doesn't support Geolocation
-        handleNoGeolocation(false);
+        // Browser no soporta Geolocation
+        getCurrentPositionError(false);
     }
 }
 
-function getCurrentPositionError(errorFlag) {
+/* function getCurrentPositionError(errorFlag) {
     var content = '';
     if (errorFlag) {
         content = 'Error en el servei de geolocalització.';
@@ -106,6 +105,7 @@ function getCurrentPositionError(errorFlag) {
     var infowindow = new google.maps.InfoWindow(options);
     mapAlta.setCenter(options.position);
 }
+*/
 
 function cogerDireccionAlta(pos) {
     sDireccionAlta = '';
@@ -137,13 +137,11 @@ function cogerDireccionAlta(pos) {
 function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
     var sCoord = posAlta.toString().replace(" ", "").replace("(","").replace(")","")
-
     var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
     var sParam  = "sObs=" + sObs;
     sParam += "&sCoord=" + sCoord;
     sParam += "&sDir=" + sDireccionAlta;
     sParam += "&sFoto=" + sFoto;
-
     try
     {
         var datos = LlamaWebService('POST',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null, true);
@@ -155,8 +153,15 @@ function enviarIncidencia() {
 }
 
 function resultadoEnvio(resultado, param){
-    if (global_AjaxERROR != '' || global_AjaxRESULTADO == null)
+    if (global_AjaxERROR != '' || global_AjaxRESULTADO == null) {
         mensaje(global_AjaxERROR);
+
+// Descapar para pruebas en PC  -----------------
+//        eliminarFoto();
+//        limpiaVariables('pageNuevaIncidencia');
+//        abrirPagina('pageIndex');
+
+    }
     else
     {
         eliminarFoto();
