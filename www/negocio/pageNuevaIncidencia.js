@@ -1,7 +1,5 @@
 var mapAlta = null;
 var posAlta = '';
-var global_AjaxERROR = '';
-var global_AjaxRESULTADO = null;
 var sDireccionAlta = '';
 var sFoto = '';
 
@@ -162,7 +160,6 @@ function resultadoEnvio(resultado, param){
 //        eliminarFoto();
 //        limpiaVariables('pageNuevaIncidencia');
 //        abrirPagina('pageIndex');
-
     }
     else
     {

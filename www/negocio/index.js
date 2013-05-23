@@ -1,6 +1,8 @@
 // funciones COMUNES -----------------------------------------------------------------------
 var pictureSource;
 var destinationType;
+var global_AjaxERROR = '';
+var global_AjaxRESULTADO = null;
 
 // -------- Al INICIAR -----------------------------------------------------------------------
 window.addEventListener('load', function () {
