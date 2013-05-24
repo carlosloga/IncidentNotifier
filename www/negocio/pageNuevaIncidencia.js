@@ -90,23 +90,6 @@ function iniciaMapaAlta(bAbrir) {
     }
 }
 
-/* function getCurrentPositionError(errorFlag) {
-    var content = '';
-    if (errorFlag) {
-        content = 'Error en el servei de geolocalització.';
-    } else {
-        content = 'Error: el seu navegador no soporta geolocalització';
-    }
-    var options = {
-        map: mapAlta,
-        position: new google.maps.LatLng(41.97430, 2.78241),
-        content: content
-    };
-    var infowindow = new google.maps.InfoWindow(options);
-    mapAlta.setCenter(options.position);
-}
-*/
-
 function cogerDireccionAlta(pos) {
     sDireccionAlta = '';
     var llamaWS = "http://maps.googleapis.com/maps/api/geocode/xml";
@@ -114,7 +97,7 @@ function cogerDireccionAlta(pos) {
     //alert(sParam);
     try
     {
-        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null, false);
+        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null, false, false,null);
         if (global_AjaxERROR != '')
             alert(global_AjaxERROR);
         else
@@ -137,14 +120,16 @@ function cogerDireccionAlta(pos) {
 function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
     var sCoord = posAlta.toString().replace(" ", "").replace("(","").replace(")","")
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
     var sParam  = "sObs=" + sObs;
     sParam += "&sCoord=" + sCoord;
     sParam += "&sDir=" + sDireccionAlta;
     sParam += "&sFoto=" + sFoto;
+    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
+//    llamaWS = "http://213.27.242.251:8000/IVP_WEBService/IVP_WEBService.asmx/GetTabla";
+//    sParam = "sTabla=Estats&empresa=";
     try
     {
-        var datos = LlamaWebService('POST',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null, true);
+        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null, true,false,null);
     }
     catch (e)
     {

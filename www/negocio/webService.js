@@ -1,9 +1,12 @@
 ﻿
 // ********************* METODOS PARA EL ACCESO A WebServices Y OBTENCIÓN DE DATOS ********************************
+var global_AjaxERROR = '';
+var global_AjaxRESULTADO = null;
 
-function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam, sincro) {
+function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam, sincro, bProcesar, tag) {
     global_AjaxRESULTADO = null;
     global_AjaxERROR = '';
+    $.support.cors = true;
     $.ajax({
         type: sTipoLlamada,
         url: sUrl,
@@ -15,7 +18,11 @@ function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom,
         cache: bCache,
         timeout: nTimeOut,
         success: function (xml) {
-            global_AjaxRESULTADO = xml;
+            if(bProcesar)
+                global_AjaxRESULTADO = procesaResultado(xml,tag);
+            else
+                global_AjaxRESULTADO = xml;
+
             if (funcion != null) {
                 funcion(global_AjaxRESULTADO, pasaParam);
             }
@@ -29,4 +36,39 @@ function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom,
         async: sincro
     });
     return global_AjaxRESULTADO;
+}
+
+
+function procesaResultado(xml, tag) {
+    var aCampo = new Array();
+    var aRegistro = new Array();
+    var aTabla = new Array();
+    var nomCampo = '';
+    var valCampo = '';
+    var r = 0;  //indice de los registros de la tabla
+    var c = 0;  //incice de los campos de un registro
+
+    mensaje('en ProcesaResultado(). tag buscar : ' + tag);
+    var sId = '';
+    $(xml).find(tag).each(function () {
+        mensaje('en ProcesaResultado(). bucle de tags  r = ' + r.toString());
+        c = 0;
+        aRegistro = new Array();
+        $(this).children().each(function () {
+            nomCampo = this.tagName;
+            valCampo = $(this).text();
+            aCampo = new Array(2);
+            aCampo[0] = nomCampo;
+            aCampo[1] = valCampo;
+            mensaje('en ProcesaResultado(). extrayendo del xml recibido : ' + nomCampo + ' : ' + valCampo);
+            aRegistro[c] = aCampo;
+            c += 1;
+        });
+        aTabla[r] = aRegistro;
+        mensaje('en ProcesaResultado(). aTabla[' + r.toString() + '] = ' + aTabla[r]);
+        r += 1;
+    });
+
+    mensaje('en ProcesaResultado(). aTabla.length : ' + aTabla.length + ' aTabla : ' + aTabla);
+    return aTabla;
 }
