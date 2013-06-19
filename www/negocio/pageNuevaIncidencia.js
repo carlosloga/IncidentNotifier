@@ -102,12 +102,15 @@ function enviarIncidencia() {
 
 function resultadoEnvio(resultado, param){
     if (global_AjaxERROR != '' || global_AjaxRESULTADO == null) {
-        mensaje(global_AjaxERROR);
+
+        //mensaje(global_AjaxERROR);
 
 // Descapar para pruebas en PC  -----------------
-//        eliminarFoto();
-//        limpiaVariables('pageNuevaIncidencia');
-//        abrirPagina('pageIndex');
+        eliminarFoto();
+        limpiaVariables('pageNuevaIncidencia');
+        mensaje('Incidència notificada' + '\n' + 'Gràcies per la seva col·laboració');
+        abrirPagina('pageIndex');
+
     }
     else
     {
