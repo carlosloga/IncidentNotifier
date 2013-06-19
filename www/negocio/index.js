@@ -50,6 +50,13 @@ function limpiaVariables(sPag){
             $('#labelComentari').text('');
             $('#textareaComentari').val('');
             break;
+
+        case 'pageConsultaIncidencias' :
+            sDireccionConsulta = '';
+            posConsulta = '';
+            mapConsulta = null;
+            break;
+
     }
 }
 

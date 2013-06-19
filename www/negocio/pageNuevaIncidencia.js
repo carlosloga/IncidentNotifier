@@ -50,7 +50,6 @@ function iniciaMapaAlta(bAbrir) {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-
     mapAlta = new google.maps.Map(document.getElementById('divMapaAlta'), mapOptions);
 
     // Try HTML5 geolocation
@@ -58,23 +57,13 @@ function iniciaMapaAlta(bAbrir) {
         navigator.geolocation.getCurrentPosition(function (position) {
             posAlta = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-            cogerDireccionAlta(posAlta);
+            sDireccionAlta = cogerDireccion(posAlta);
 
-            var infowindow = new google.maps.InfoWindow({
-                map: mapAlta,
-                position: posAlta,
-                content: '<div><table><tr><td style="font-size:x-small; font-weight:bold;">reportar incidència en </td></tr><tr><td style="font-size:x-small; font-weight:normal;">' + sDireccionAlta + '</td></tr></table></div>',
-                maxWidth: 300
-            });
+            var sTxt = '<div><table><tr><td style="font-size:x-small; font-weight:bold;">reportar incidència en </td></tr><tr><td style="font-size:x-small; font-weight:normal;">' + sDireccionAlta + '</td></tr></table></div>';
+            nuevaInfoWindowSobrePlano(mapAlta, posAlta, sTxt, 300);
 
             nuevoMarcadorSobrePlano(mapAlta,posAlta,sDireccionAlta);
- /*
-            var marker = new google.maps.Marker({
-                position: posAlta,
-                map: mapAlta,
-                title: 'incidència aquí'
-            });
-*/
+
             mapAlta.setCenter(posAlta);
 
             $('#labelDireccion').text(sDireccionAlta);
@@ -90,32 +79,6 @@ function iniciaMapaAlta(bAbrir) {
     }
 }
 
-function cogerDireccionAlta(pos) {
-    sDireccionAlta = '';
-    var llamaWS = "http://maps.googleapis.com/maps/api/geocode/xml";
-    var sParam =  "latlng=" + pos.toString().replace(" ", "").replace("(","").replace(")","") + "&sensor=true";
-    //alert(sParam);
-    try
-    {
-        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded', true, 'xml', false, false, 10000, null, null, false, false,null);
-        if (global_AjaxERROR != '')
-            alert(global_AjaxERROR);
-        else
-        {
-            sDireccionAlta = $(datos).find('formatted_address').text();
-            var n = 0;
-            $(datos).find('formatted_address').each(function () {
-                if (n == 0) sDireccionAlta = $(this).text();
-                n++;
-            });
-        }
-    }
-    catch (e)
-    {
-        mensaje('ERROR (exception) en cogerDireccionAlta : \n' + e.code + '\n' + e.message);
-    }
-}
-
 // -------- ENVIAR INCIDENCIA -----------------------------------------------------------------------
 function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
@@ -125,11 +88,11 @@ function enviarIncidencia() {
     sParam += "&sDir=" + sDireccionAlta;
     sParam += "&sFoto=" + sFoto;
     var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/NuevaIncidencia";
-//    llamaWS = "http://213.27.242.251:8000/IVP_WEBService/IVP_WEBService.asmx/GetTabla";
-//    sParam = "sTabla=Estats&empresa=";
+
     try
     {
-        var datos = LlamaWebService('GET',llamaWS,sParam,'application/x-www-form-urlencoded',true,'xml',false,false,10000,resultadoEnvio,null, true,false,null);
+        // function LlamaWebService(sTipoLlamada,sUrl,   sParametros,sContentType,                      bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion,        pasaParam, asincro, bProcesar, tag)
+        var datos = LlamaWebService('GET',       llamaWS,sParam,    'application/x-www-form-urlencoded',true,      'xml',     false,     false,  10000,    resultadoEnvio, null,      false,   false,     null);
     }
     catch (e)
     {

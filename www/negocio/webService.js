@@ -3,7 +3,7 @@
 var global_AjaxERROR = '';
 var global_AjaxRESULTADO = null;
 
-function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam, sincro, bProcesar, tag) {
+function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom, sDataType, bProcData, bCache, nTimeOut, funcion, pasaParam, asincro, bProcesar, tag) {
     global_AjaxRESULTADO = null;
     global_AjaxERROR = '';
     $.support.cors = true;
@@ -30,10 +30,10 @@ function LlamaWebService(sTipoLlamada,sUrl, sParametros,sContentType, bCrossDom,
         },
         error: function (e, f, g) {
             //global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + ws + '  ' + sUrl + ' amb ' + sParametros;
-            global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + sUrl;
+            global_AjaxERROR = 'ERROR en LlamaWebService \r\n' + e.message + ' ' + e.Description + ' ' + f + ' ' + g + ' en ' + sUrl + '    params: ' + sParametros;
             if (funcion != null) funcion(global_AjaxERROR, pasaParam);
         },
-        async: sincro
+        async: asincro
     });
     return global_AjaxRESULTADO;
 }
@@ -48,27 +48,27 @@ function procesaResultado(xml, tag) {
     var r = 0;  //indice de los registros de la tabla
     var c = 0;  //incice de los campos de un registro
 
-    mensaje('en ProcesaResultado(). tag buscar : ' + tag);
+//mensaje('en ProcesaResultado(). tag buscar : ' + tag);
     var sId = '';
     $(xml).find(tag).each(function () {
-        mensaje('en ProcesaResultado(). bucle de tags  r = ' + r.toString());
+//mensaje('en ProcesaResultado(). bucle de tags  r = ' + r.toString());
         c = 0;
         aRegistro = new Array();
-        $(this).children().each(function () {
+        //$(this).children().each(function () {
             nomCampo = this.tagName;
             valCampo = $(this).text();
             aCampo = new Array(2);
             aCampo[0] = nomCampo;
             aCampo[1] = valCampo;
-            mensaje('en ProcesaResultado(). extrayendo del xml recibido : ' + nomCampo + ' : ' + valCampo);
+//mensaje('en ProcesaResultado(). extrayendo del xml recibido : ' + nomCampo + ' : ' + valCampo);
             aRegistro[c] = aCampo;
             c += 1;
-        });
+        //});
         aTabla[r] = aRegistro;
-        mensaje('en ProcesaResultado(). aTabla[' + r.toString() + '] = ' + aTabla[r]);
+//mensaje('en ProcesaResultado(). aTabla[' + r.toString() + '] = ' + aTabla[r]);
         r += 1;
     });
 
-    mensaje('en ProcesaResultado(). aTabla.length : ' + aTabla.length + ' aTabla : ' + aTabla);
+//mensaje('en ProcesaResultado(). aTabla.length : ' + aTabla.length + ' aTabla : ' + aTabla);
     return aTabla;
 }
