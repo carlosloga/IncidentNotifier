@@ -4,8 +4,8 @@ var sDireccionConsulta = '';
 
 function iniciaMapaConsulta() {
 // Descapar para pruebas en PC :
-    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/ConsultarIncidenciasZona";
-    var sParam  = "sLat=41.3965&sLon=2.1521";
+//    var llamaWS = "http://213.27.242.251:8000/wsIncidentNotifier/wsIncidentNotifier.asmx/ConsultarIncidenciasZona";
+//    var sParam  = "sLat=41.3965&sLon=2.1521";
 
     var mapOptions = {
         zoom: 14,
