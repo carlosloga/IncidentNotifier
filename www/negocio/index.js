@@ -1,6 +1,7 @@
 // funciones COMUNES -----------------------------------------------------------------------
 var pictureSource;
 var destinationType;
+var sCambioPagina = '';
 
 // -------- Al INICIAR -----------------------------------------------------------------------
 window.addEventListener('load', function () {
@@ -21,22 +22,42 @@ function deviceReady() {
 // -------- COMUNES -----------------------------------------------------------------------
 
 function abrirPagina(sPag) {
-    switch(sPag)
-    {
-        case 'pageNuevaIncidencia' :
-            iniciaMapaAlta(true);
-        break;
-
-        case 'pageConsultaIncidencias' :
-            iniciaMapaConsulta();
-        break;
-    }
-
     $.mobile.changePage('#' + sPag, {
         transition: "flip",
         reverse: false,
         changeHash: true
     });
+
+    sCambioPagina = sPag;
+    switch(sCambioPagina)
+    {
+        case 'pageNuevaIncidencia' :
+            $("#collapsibleLocalizacion").trigger("expand");
+            break;
+
+        case 'pageConsultaIncidencias' :
+            iniciaMapaConsulta();
+            break;
+    }
+
+    //espero a que esté cargado el div para que se renderice bien el plano ...
+    setTimeout(inicializa,1000);
+}
+
+function inicializa(){
+    //alert('ya ' + sCambioPagina);
+
+    switch(sCambioPagina)
+    {
+        case 'pageNuevaIncidencia' :
+            iniciaMapaAlta(true);
+            break;
+
+        case 'pageConsultaIncidencias' :
+            iniciaMapaConsulta();
+            break;
+    }
+    sCambioPagina = '';
 }
 
 function limpiaVariables(sPag){
