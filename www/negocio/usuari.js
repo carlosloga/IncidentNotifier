@@ -14,9 +14,6 @@ function usuari() {
 
 function usuari(aDatosUsuari) {
     try {
-
-        alert(aDatosUsuari['id'] + ' / ' + aDatosUsuari['nom'] + ' / ' + aDatosUsuari['cognom1']);
-
         this.ID = aDatosUsuari['id'];
         this.NOM = aDatosUsuari['nom'] + '';
         this.COGNOM1 = aDatosUsuari['cognom1'] + '';

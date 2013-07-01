@@ -17,6 +17,18 @@ function deviceReady() {
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
     }
+
+    //Cargar/crear la B.D.
+    db.onready(function() {
+        try
+        {
+            setTimeout("cargarBD()", 500);
+        }
+        catch(e)
+        {
+            alert('error : ' + e);
+        }
+    });
 }
 
 // -------- COMUNES -----------------------------------------------------------------------
@@ -63,6 +75,8 @@ function inicializa(){
                 $('#inputDNI').val(objUsu['DNI']);
                 $('#inputEMAIL').val(objUsu['EMAIL']);
                 $('#inputTELEFON').val(objUsu['TELEFON']);
+
+                $('#labelQUISOC').text(objUsu['NOM'] + ' ' + objUsu['COGNOM1'] + ' ' + objUsu['COGNOM2'] );
             }
 
             iniciaMapaAlta(true);

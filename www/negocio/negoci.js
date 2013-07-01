@@ -6,14 +6,12 @@ function getEstructuraTablas() {
             primaryKey: ["ID"],
             data: []
         },
-
         {
             tableName: "CIUTADA",
             columns: [ "ID", "NOM", "COGNOM1", "COGNOM2", "DNI", "EMAIL", "TELEFON" ],
             primaryKey: ["ID"],
             data: []
         },
-
         {
             tableName: "CARRERS",
             columns: [ "ID" , "TIPUS" , "CARRER" ],
@@ -26,7 +24,6 @@ function getEstructuraTablas() {
                 [4,"passeig", "Fluvial"]
             ]
         }
-
     ];
 }
 

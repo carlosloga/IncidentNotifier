@@ -101,10 +101,6 @@ function enviarIncidencia() {
         var email='';
         var telefon='';
 
-        //fila = [0,'','','','','',''];
-        //var borradas = db.catalog.getTable("CIUTADA").deleteRow(fila);
-        //alert('delete : ' + borradas);
-
         var objUsu = getDatosUsuario();
 
         if(objUsu == null) alert("antes insert/upd : Error consultant dades de l'usuari");
@@ -116,35 +112,26 @@ function enviarIncidencia() {
         if($('#inputEMAIL').val() != '')   email=    $('#inputEMAIL').val();   else email =   objUsu['EMAIL'] + '';
         if($('#inputTELEFON').val() != '') telefon = $('#inputTELEFON').val(); else telefon = objUsu['TELEFON'] + '';
 
-        // alert('nom a insertar/updatear : ' + nom);
-        // alert(arrCiutada[0]['NOM']);
-
-        alert(idCiutada + ' / ' + nom + ' / ' + cognom1 + ' / ' + cognom2 + ' / ' + dni + ' / ' + email + ' / ' + telefon);
-
-        //fila = [idCiutada, "'" + nom + "'" , "'" + cognom1 + "'" , "'" + cognom2 + "'", "'" + dni + "'", "'" + email + "'", "'" + telefon + "'"];
         fila = [idCiutada, nom , cognom1, cognom2,  dni, email , telefon];
 
         var filaInsertada = null;
 
         if(objUsu != null) {
-            alert('upd');
             filaInsertada = db.catalog.getTable("CIUTADA").updateRow(fila);
         }
         else
         {
-            alert('insert');
             filaInsertada = db.catalog.getTable("CIUTADA").insertRow(fila);
         }
 
-        alert('filas insert/upd = ' + filaInsertada);
+        if(filaInsertada == 1)
+            db.commit();
+        else
+            alert('Actualització correcta');
 
         objUsu = getDatosUsuario();
         if(objUsu == null)
             alert("despues insert/upd : Error consultant dades de l'usuari");
-        else
-        {
-            alert('cons len : ' + objUsu['NOM'] + ' ' +  objUsu['COGNOM1']);
-        }
 
     }
     catch (e)
