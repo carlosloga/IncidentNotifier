@@ -83,6 +83,75 @@ function iniciaMapaAlta(bAbrir) {
 function enviarIncidencia() {
     var sObs = $('#textareaComentari').val();
     var sCoord = posAlta.toString().replace(" ", "").replace("(","").replace(")","")
+
+    try
+    {
+        //BD local :
+        //[ "ID", "REFERENCIA", "ESTAT", "DATA", "CARRER", "NUM", "COORD_X", "COORD_Y", "COMENTARI", "FOTO1" , "FOTO2", "FOTO3" ]
+        var fila = [0,"REF000000","E","29/06/2013","C. ARIBAU","213", sCoord.split(",")[0] , sCoord.split(",")[1] ,sObs,sFoto,"","" ];
+        //alert(fila);
+        //var filaInsertada = db.catalog.getTable("COMUNICATS").insertRow(fila);
+
+        // NOM, COGNOM1, COGNOM2, DNI, EMAIL, TELEFON
+        var idCiutada = 0;
+        var nom='';
+        var cognom1='';
+        var cognom2='';
+        var dni='';
+        var email='';
+        var telefon='';
+
+        //fila = [0,'','','','','',''];
+        //var borradas = db.catalog.getTable("CIUTADA").deleteRow(fila);
+        //alert('delete : ' + borradas);
+
+        var objUsu = getDatosUsuario();
+
+        if(objUsu == null) alert("antes insert/upd : Error consultant dades de l'usuari");
+
+        if($('#inputNOM').val() != '')     nom =     $('#inputNOM').val();     else nom =     objUsu['NOM'] + '';
+        if($('#inputCOGNOM1').val() != '') cognom1 = $('#inputCOGNOM1').val(); else cognom1 = objUsu['COGNOM1'] + '';
+        if($('#inputCOGNOM2').val() != '') cognom2 = $('#inputCOGNOM2').val(); else cognom2 = objUsu['COGNOM2'] + '';
+        if($('#inputDNI').val() != '')     dni =     $('#inputDNI').val();     else dni =     objUsu['DNI'] + '';
+        if($('#inputEMAIL').val() != '')   email=    $('#inputEMAIL').val();   else email =   objUsu['EMAIL'] + '';
+        if($('#inputTELEFON').val() != '') telefon = $('#inputTELEFON').val(); else telefon = objUsu['TELEFON'] + '';
+
+        // alert('nom a insertar/updatear : ' + nom);
+        // alert(arrCiutada[0]['NOM']);
+
+        alert(idCiutada + ' / ' + nom + ' / ' + cognom1 + ' / ' + cognom2 + ' / ' + dni + ' / ' + email + ' / ' + telefon);
+
+        //fila = [idCiutada, "'" + nom + "'" , "'" + cognom1 + "'" , "'" + cognom2 + "'", "'" + dni + "'", "'" + email + "'", "'" + telefon + "'"];
+        fila = [idCiutada, nom , cognom1, cognom2,  dni, email , telefon];
+
+        var filaInsertada = null;
+
+        if(objUsu != null) {
+            alert('upd');
+            filaInsertada = db.catalog.getTable("CIUTADA").updateRow(fila);
+        }
+        else
+        {
+            alert('insert');
+            filaInsertada = db.catalog.getTable("CIUTADA").insertRow(fila);
+        }
+
+        alert('filas insert/upd = ' + filaInsertada);
+
+        objUsu = getDatosUsuario();
+        if(objUsu == null)
+            alert("despues insert/upd : Error consultant dades de l'usuari");
+        else
+        {
+            alert('cons len : ' + objUsu['NOM'] + ' ' +  objUsu['COGNOM1']);
+        }
+
+    }
+    catch (e)
+    {
+        alert('Error : ' + e);
+    }
+
     var sParam  = "sObs=" + sObs;
     sParam += "&sCoord=" + sCoord;
     sParam += "&sDir=" + sDireccionAlta;

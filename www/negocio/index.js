@@ -50,6 +50,21 @@ function inicializa(){
     switch(sCambioPagina)
     {
         case 'pageNuevaIncidencia' :
+
+            //cargar los datos del usuario (ciutadà)
+            var objUsu = getDatosUsuario();
+            if(objUsu == null)
+                alert("Error consultant dades de l'usuari");
+            else
+            {
+                $('#inputNOM').val(objUsu['NOM']) ;
+                $('#inputCOGNOM1').val(objUsu['COGNOM1']);
+                $('#inputCOGNOM2').val(objUsu['COGNOM2']);
+                $('#inputDNI').val(objUsu['DNI']);
+                $('#inputEMAIL').val(objUsu['EMAIL']);
+                $('#inputTELEFON').val(objUsu['TELEFON']);
+            }
+
             iniciaMapaAlta(true);
             break;
 
@@ -70,6 +85,7 @@ function limpiaVariables(sPag){
             mapAlta = null;
             $('#labelComentari').text('');
             $('#textareaComentari').val('');
+
             break;
 
         case 'pageConsultaIncidencias' :
